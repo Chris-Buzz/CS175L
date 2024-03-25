@@ -1,19 +1,27 @@
 #Christopher Buzaid
 # CS 175L
-#AverageFromInput
+#AverageFromInput Exception Handling
 
 
 def main():
-    numbers_file = open('numbers.txt', 'r')
     i = 0
     total = 0
+    import sys
     
+    try:
+        numbers_file = open('numbers.txt', 'r')
+    except IOError:
+            sys.exit('File not found: numbers.txt - exiting')
+            
     for num in (numbers_file):
         num = num.strip()
-        i+=1
-        total +=  int(num)
-        print(f'I read {i} number(s)  Current number is:   {num}  Total is:   {total}')
-
+        try:
+            i+=1
+            total +=  int(num)
+            print(f'I read {i} number(s)  Current number is:   {num}  Total is:   {total}')
+        except ValueError:
+            print( f'Bad data: {num} skipping')
+            i -= 1
 
     print(f'Average: {total / i}')
 
